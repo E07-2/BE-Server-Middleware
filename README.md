@@ -1,73 +1,103 @@
-# BE-Server-Middleware
+# Server Middleware
 
-This is small exercise to practice writing our custom middleware.
+A small exercise to practice writing custom middleware within an Express.js server
 
-Please create a small Express server that has:
+## What you will be doing
 
-- A `POST` endpoint at `/validateUser`.
-- A `POST` endpoint at `/sanitizeUser`.
+You will be creating a server with two endpoints, both of which will be accepting **POST** requests.
 
-Both endpoints should be responsible for accepting a JSON object like the following:
+Both of these endpoints will be expecting a JSON object with user data.
+
+### Example
 
 ```json
 {
   "firstName" : "steve",
   "lastName" : "stevenson",
   "age": "129",
-  "fbw": "36"
+  "fbw": "36",
   "profession" : "Musician",
   "favoriteBands" : ["Radiohead", "Motorhead", "Machinehead", "The talking heads" ],
-  "email" : "steve@steve.com"
+  "email" : "steve@metallica.com"
 }
 ```
 
-For the `/validateUser` endpoint
+The endpoints will then read and process this data.
 
-- Create a middleware method that will make sure the object received contains `firstName`, `lastName`, `age`, `fbw` and `email`.
-- Create a middleware method that will check if the user is above 18years old
-- Create a middleware method that will check if the user belongs to our FBW
-- If all the above is true, then you should send a response with a success message
-- If any of the middleware fails, you should send a response with an error message that says why the user is not valid.
+## Tasks
 
-#### EXAMPLE RESPONSES
+### Task 1 - Getting ready
 
-```json
-// Success case
-{
-  "message" : "This user is valid!"
-}
+1. Initialise npm into your project with `npm init -y`
+2. Install the express.js npm package `npm i express`
+3. Create the file `server.js`
 
+### Task 2 - Setting up your server
 
-// Failure
-{
-  "message": "We can not validate your user. They are not a member of FBW36"
-}
+Create your **express.js** server in the `server.js` file
 
+### Task 3 - Creating the validateUser endpoint
 
-// Failure
-{
-  "message": "We can not validate your user. They are  below 18 years of age"
-}
+Create an endpoint which;
 
-```
+1. Responds to the path `/validateUser`
+2. Responds to **POST** request methods
 
-For the `/sanitizeUser` endpoint:
+### Task 4 - Creating middleware
 
-- Create a middleware that makes the `firstName` and `lastName` start with a capital letter
-- Create a middleware that sorts the `favoriteBands` array alphabetically
-- Create a middleware that will turn `age` and `fbw` to numbers
+1. Create a **middleware function** that checks the object contains **values** for the keys `firstName`, `lastName`, `age`, `fbw` and `email`
+2. Create a **middleware function** that will check if the user is above **18** years old
+3. If any of the middleware fails, you should send a response with an **error** message that says why the user is not valid
 
-#### EXAMPLE RESPONSES
+    #### Example failure response
+    ```json
+    {
+      "message": "We can not validate your user. They are  below 18 years of age"
+    }
+    ```
 
-```json
-{
-  "firstName" : "Steve",
-  "lastName" : "Stevenson",
-  "age": 129,
-  "fbw": 36
-  "profession" : "Musician",
-  "favoriteBands" : ["Machinehead","Motorhead", "Radiohead",  "The Talking Heads" ],
-  "email" : "steve@steve.com"
-}
+### Task 5 - Applying the middleware
 
-```
+1. Apply all the middleware you created in **Task 4** to the **validateUser** endpoint
+
+2. If the request passes successfully through the middleware, **validateUser** should send a response with a **success** message
+
+   #### Example success response
+    ```json
+    {
+      "message" : "This user is valid!"
+    }
+    ```
+
+### Task 6 - Creating the sanitizeUser endpoint
+
+Create an endpoint which;
+
+1. Responds to the path `/sanitizeUser`
+2. Responds to **POST** request methods
+
+### Task 7 - Creating middleware
+
+1. Create a **middleware function** that makes the `firstName` and `lastName` start with a capital letter
+2. Create a **middleware function** that sorts the `favoriteBands` array alphabetically
+3. Create a **middleware function** that will convert `age` and `fbw` to numbers
+
+### Task 8 - Applying the middleware
+
+1. Apply all the middleware you created in **Task 7** to the **sanitizeUser** endpoint
+
+2. If the request passes successfully through the middleware, **sanitizeUser** should send a response with the updated **POST** data
+
+    #### Example response
+    
+    ```json
+    {
+      "firstName" : "Steve",
+      "lastName" : "Stevenson",
+      "age": 129,
+      "fbw": 36,
+      "profession" : "Musician",
+      "favoriteBands" : ["Machinehead", "Motorhead", "Radiohead", "The Talking Heads"],
+      "email" : "steve@steve.com"
+    }
+    ```
